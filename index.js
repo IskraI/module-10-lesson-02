@@ -1,210 +1,305 @@
 /*
-  1. Операція spread як заміна concat і slice
+  1. Коллбек функції
+
+  - Визначення та призначення
+
+  Напишіть такі функції:
+
+  createProduct(productData, callback) - приймає об'єкт товару без id, а 
+  також коллбек. Функція створює об'єкт товару, додаючи йому 
+  унікальний ідентифікатор як id і викликає коллбек передаючи йому 
+  створений об'єкт
+
+  logProduct(product) - коллбек, що приймає об'єкт товару і логує 
+  його у консоль
+
+  logTotalPrice(product) - коллбек, що приймає об'єкт товару і 
+  логує загальну вартість товару в консоль
+
+  Об'єкт товару має поля name, quantity та price
+
+  - Показати в якому порядку викликаються функції
 */
 
-//*  Копія массива
+// Функція, що повертає випадкове значення id
 
-// const array = [1, 2, 3, 4, 5];
-
-// const newArray = array.concat()
-
-// const newArray = [...array];
-
-// console.log(newArray);
-
-// console.log(array === newArray);
-
-//* Об'єднання масивів через spread замість concat
-
-// const array1 = [1, 2, 3, 4];
-
-// const array2 = [5, 6, 7, 8];
-
-// const allElementsArray = array1.concat(array2);
-
-// const allElementsArray = [...array1, 60, ...array2, 40];
-
-// console.log(allElementsArray);
-
-/*
-  2. Копія об'єкту
-*/
-
-// const user = {
-//   firstName: 'Jonathan',
-//   lastName: 'Barnett',
-//   age: 30,
-// };
-
-// const newUser = { ...user };
-
-// console.log(newUser);
-
-// console.log(newUser === user);
-
-/*
-  3. Spread + Rest
-
-  Напишіть функцію getMinNumber яка приймає довільну кількість чисел
-  та повертає найменше із них
-*/
-
-// function getMinNumber(...numbers) {
-//   // console.log(arguments);
-//   // console.log(number1, numbers);
-
-//   return Math.min(...numbers);
+// function generateId() {
+//   return '_' + Math.random().toString(36).substr(2, 9);
 // }
 
-// console.log(getMinNumber(10, 50, 40, -5));
+// function createProduct(productData, callback) {}
 
-/*
-  4. Деструктуризація об'єктів, які проблеми вирішує
-*/
+// function logProduct(product) {}
 
-/*
-  Напишіть деструктуризуюче присвоювання, яке:
-  властивість firstName присвоїть у змінну firstName
-  властивість age присвої присвоїть у змінну userAge
-  властивість isAdmin присвоїть у змінну isAdmin (false, по дефолту
-  якщо, у об'єкта данної властивості не буде)
-*/
+// function logTotalPrice(product) {}
 
-// const user = {
-//   firstName: 'Andrii',
-//   lastName: 'Shevchuk',
-//   age: 30,
-//   hobbies: ['guitar', 'programming'],
-//   gender: 'male',
-//   weight: 70,
-//   heigth: 180,
-// };
-
-// const { firstName, lastName, age: userAge, hobbies = [], ...otherProps } = user;
-
-// console.log(userAge, hobbies);
-
-// console.log(otherProps);
-
-// user.firstName
-// user.lastName
-// user.age
-
-/*
-  5. Глубока деструктуризація об'єктів, дістати також original та secondary
-*/
-
-// const team = {
-//   number: 4,
-//   flag: './images/flag.jpg',
-//   employees: ['Anton', 'Oleg', 'Ronnie', 'Carr'],
-//   langs: {
-//     original: 'uk',
-//     secondary: 'en',
+// createProduct(
+//   {
+//     name: '🍎',
+//     price: 30,
+//     quantity: 3,
 //   },
+//   logProduct
+// );
+
+// createProduct(
+//   {
+//     name: '🍋',
+//     price: 20,
+//     quantity: 5,
+//   },
+//   logTotalPrice
+// );
+
+/* 
+  2. Коллбек функції
+
+  Додайте об'єкту account методи:
+
+  withdraw(amount, onSuccess, onError) та deposit(amount, onSuccess, onError) 
+  де перший параметр це сума операції, а другий і третій - коллбеки,
+  які приймають текст повідомлення на успіх або помилку
+
+  Метод withdraw викликає onError якщо amount більше TRANSACTION_LIMIT 
+  або this.balance, в іншому випадку випадку викликає onSuccess та
+  зменшує баланс на переданий amount
+
+  Метод deposit викликає onError якщо amount більше TRANSACTION_LIMIT 
+  або меньше або дорівнює нулю, в іншому випадку випадку викликає onSuccess
+  та збільшує баланс на переданий amount
+*/
+
+// const TRANSACTION_LIMIT = 1000;
+
+// const account = {
+//   firstname: 'Andrii',
+//   lastname: 'Shevchuk',
+//   balance: 618,
+//   withdraw(amount, onSuccess, onError) {},
+//   deposit(amount, onSuccess, onError) {},
 // };
 
-// const {
-//   flag,
-//   number,
-//   employees,
-//   langs: { original, secondary },
-// } = team;
+// function handleSuccess(message) {
+//   console.log(`✅ Success! ${message}`);
+// }
+
+// function handleError(message) {
+//   console.log(`❌ Error! ${message}`);
+// }
+
+// account.withdraw(400, handleSuccess, handleError);
+// account.withdraw(400, handleSuccess, handleError);
+// account.withdraw(6000, handleSuccess, handleError);
+// account.deposit(1700, handleSuccess, handleError);
+// account.withdraw(300, handleSuccess, handleError);
+// account.deposit(0, handleSuccess, handleError);
+// account.deposit(-600, handleSuccess, handleError);
+// account.deposit(600, handleSuccess, handleError);
 
 /*
-  6. Деструктуризація масивів
+  3. Коллбек функції
+
+  Напишіть функцію each(array, callback), яка першим параметром очікує масив
+  чисел, а другим - коллбек, який застосовується до кожного елемента масиву
+
+  Функція each повинна повернути новий масив, елементами якого будуть 
+  результати виклику коллбеку
 */
+
+// function each(array, callback) {}
+
+// console.log(
+//   each([64, 49, 36, 25, 16], function (value) {
+//     return value * 2;
+//   })
+// );
+
+// console.log(
+//   each([64, 49, 36, 25, 16], function (value) {
+//     return value - 10;
+//   })
+// );
+
+// console.log(
+//   each([64, 49, 36, 25, 16], function (value) {
+//     return Math.sqrt(value);
+//   })
+// );
+
+// console.log(
+//   each([1.5, 2.1, 16.4, 9.7, 11.3], function (value) {
+//     return Math.ceil(value);
+//   })
+// );
+
+// console.log(
+//   each([1.5, 2.1, 16.4, 9.7, 11.3], function (value) {
+//     return Math.floor(value);
+//   })
+// );
 
 /*
-  Дістати перший та третій елементи масиву, всі інші після 
-  третього занести в окремий масив
+  4. Стрілочні функції
+
+  - Для чого були вигадані
+  - Синтаксис залежно від кількості параметрів
+  - Явне/неявне повернення
+  - Різниця з function declaration (відсутність arguments та сплиття)
+
+  Перепишіть функцію getSum, слідуючи синтаксису стрілочних функцій
 */
 
-// const names = [
-//   'Herbert Todd',
-//   'Belle Soto',
-//   'Roger Marsh',
-//   'Ethan Lindsey',
-//   'Olga Petrenko',
-// ];
-
-// const [first, , third, ...otherNames] = names;
-
-// console.log(first, third);
-
-// console.log(otherNames);
+// function getSum(firstNumber, secondNumber) {
+//   return firstNumber + secondNumber;
+// }
 
 /*
-  Дістати значення кольорів та властивість alpha
+  5. Стрілочні функції
+  
+  Перепишіть функції, слідуючи синтаксису стрілочних функцій
 */
 
-// const rgb = [0, 255, 34, 0.5];
+// Функція, що повертає випадкове значення id
 
-// const [red, green, blue, alpha = 1] = rgb;
+// function generateId() {
+//   return '_' + Math.random().toString(36).substr(2, 9);
+// }
 
-// console.log(rgb);
+// function createProduct(productData, callback) {
+//   const product = {
+//     ...productData,
+//     id: generateId(),
+//   };
 
-// console.log(...rgb);
+//   callback(product);
+// }
+
+// function logProduct(product) {
+//   console.log(product);
+// }
+
+// function logTotalPrice({ price, quantity }) {
+//   console.log(price * quantity);
+// }
+
+// createProduct(
+//   {
+//     name: '🍎',
+//     price: 30,
+//     quantity: 3,
+//   },
+//   logProduct
+// );
+
+// createProduct(
+//   {
+//     name: '🍋',
+//     price: 20,
+//     quantity: 5,
+//   },
+//   logTotalPrice
+// );
 
 /*
-  У нас є об'єкт salaries з зарплатами
-
-  Створіть функцію topSalary(salaries), яка повертає ім'я найбільш
-  високооплачуваного працівника
-
-  Якщо об'єкт salaries пустий то повернути null
-
-  Якщо декілька людей з одною тою самою зарплатою є найбільш високоплачуваними, можна 
-  повернути будь-якого з них
- 
-  Використовуйте Object.entries та деструктуризацію, щоб перебрати пари ключ/значение.
+  6. Стрілочні функції
+  
+  Перепишіть функції, слідуючи синтаксису стрілочних функцій
 */
 
-// const salaries = {
-//   John: 100,
-//   Pete: 300,
-//   Mary: 250,
-// };
+// function each(array, callback) {
+//   const newArr = [];
 
-// function topSalary(salaries) {
-//   const entries = Object.entries(salaries);
-
-//   // console.log(entries);
-
-//   let topSalary = 0;
-
-//   let topPaidEmployee = null;
-
-//   for (let [name, salary] of entries) {
-//     if (salary > topSalary) {
-//       topSalary = salary;
-//       topPaidEmployee = name;
-//     }
+//   for (const el of array) {
+//     newArr.push(callback(el));
 //   }
 
-//   return topPaidEmployee;
+//   return newArr;
 // }
 
-// console.log(topSalary(salaries));
+// console.log(
+//   each([64, 49, 36, 25, 16], function (value) {
+//     return value * 2;
+//   })
+// );
 
-// function sayHi(name, age, heigth) {
-//   console.log(`Hi, ${name}! Your age is ${age}, your heigth is ${heigth}`);
+// console.log(
+//   each([64, 49, 36, 25, 16], function (value) {
+//     return value - 10;
+//   })
+// );
+
+// console.log(
+//   each([64, 49, 36, 25, 16], function (value) {
+//     return Math.sqrt(value);
+//   })
+// );
+
+// console.log(
+//   each([1.5, 2.1, 16.4, 9.7, 11.3], function (value) {
+//     return Math.ceil(value);
+//   })
+// );
+
+// console.log(
+//   each([1.5, 2.1, 16.4, 9.7, 11.3], function (value) {
+//     return Math.floor(value);
+//   })
+// );
+
+/*
+  7. Метод forEach
+
+  - Призначення
+  - Сигнатура
+  
+  Перепишіть функцію, використовуючи метод forEach та стрілочні функції
+*/
+
+// function logItems(items) {
+//   for (let index = 0; index < items.length; index += 1) {
+//     console.log(`${index + 1} - ${items[index]}`);
+//   }
 // }
 
-// sayHi(30, 'Andrii', 180);
+// logItems(['Mango', 'Poly', 'Ajax']);
+// logItems(['🍎', '🍇', '🍑', '🍌', '🍋']);
 
-// function sayHi({ name, age, heigth } = {}) {
-//   console.log(`Hi, ${name}! Your age is ${age}, your heigth is ${heigth}`);
+/*
+  8. Метод forEach
+  
+  Перепишіть функцію, використовуючи метод forEach та стрілочні функції
+*/
+
+// function printContactsInfo({ names, phones }) {
+//   const namesArray = names.split(',');
+//   const phonesArray = phones.split(',');
+
+//   for (let i = 0; i < namesArray.length; i += 1) {
+//     console.log(`${namesArray[i]}: ${phonesArray[i]}`);
+//   }
 // }
 
-// function sayHi(user) {
-//   const { name, age, heigth } = user;
+// printContactsInfo({
+//   names: 'Jacob,William,Solomon,Artem',
+//   phones: '89001234567,89001112233,890055566377, 890055558379',
+// });
 
-//   console.log(`Hi, ${name}! Your age is ${age}, your heigth is ${heigth}`);
+/*
+  9. Метод forEach
+
+  Перепишіть функцію, використовуючи метод forEach та стрілочні функції
+*/
+
+// function calculateAverage(...args) {
+//   let total = 0;
+
+//   for (let number of args) {
+//     total += number;
+//   }
+
+//   return total / args.length;
 // }
 
-// sayHi();
-
-// const user = { name: `Andrii` };
-
-// const user2 = { ...user };
+// console.log(calculateAverage(1, 2, 3, 4)); // 2.5
+// console.log(calculateAverage(14, 8, 2)); // 8
+// console.log(calculateAverage(27, 43, 2, 8, 36)); // 23.2
