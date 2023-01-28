@@ -89,15 +89,6 @@ const cars = [
   Нехай функція getModels повертає масив моделей (поле model) всіх автомобілів
 */
 
-// // {
-//     make: 'Honda',
-//     model: 'CR-V',
-//     type: 'suv',
-//     amount: 14,
-//     price: 24045,
-//     onSale: true
-// },
-
 // const getModels = (arr) => {};
 
 // console.log(cars);
