@@ -89,10 +89,10 @@ const cars = [
   Нехай функція getModels повертає масив моделей (поле model) всіх автомобілів
 */
 
-// const getModels = (arr) => {};
+// const getModels = (arr) => arr.map((element) => element.model);
 
-// console.log(cars);
 // console.log(getModels(cars));
+// console.log(cars);
 
 /*
   2. Метод map
@@ -101,7 +101,8 @@ const cars = [
   значенням властивості price залежно від переданої знижки
 */
 
-// const makeCarsWithDiscount = (cars, discount) => {};
+// const makeCarsWithDiscount = (cars, discount) =>
+//   cars.map((auto) => ({ ...auto, price: auto.price - discount }));
 
 // console.table(cars);
 // console.table(makeCarsWithDiscount(cars, 2000));
@@ -113,11 +114,14 @@ const cars = [
   значення параметра threshold
 */
 
-// const filterByPrice = (cars, threshold) => {};
+// const filterByPrice = (cars, threshold) =>
+//   cars.filter((element) => element.price < threshold);
 
 // console.table(cars);
 // console.table(filterByPrice(cars, 30000));
 // console.table(filterByPrice(cars, 25000));
+
+// console.log([1, 2, 3].filter((element) => element > 3));
 
 /*
   4. Метод filter
@@ -125,7 +129,7 @@ const cars = [
   Нехай функція getCarsOnSale повертає масив автомобілів властивість onSale яких true
 */
 
-// const getCarsOnSale = (cars) => {};
+// const getCarsOnSale = (cars) => cars.filter((element) => element.onSale);
 
 // console.table(cars);
 // console.table(getCarsOnSale(cars));
@@ -137,7 +141,8 @@ const cars = [
   зі значенням параметра type
 */
 
-// const getCarsWithType = (cars, type) => {};
+// const getCarsWithType = (cars, type) =>
+//   cars.filter((element) => element.type === type);
 
 // console.table(cars);
 // console.table(getCarsWithType(cars, 'suv'));
@@ -150,8 +155,10 @@ const cars = [
   якого та параметр model однакові
 */
 
-// const getCarByModel = (cars, model) => {};
+// const getCarByModel = (cars, model) =>
+//   cars.find((element) => element.model === model);
 
+// console.table(cars);
 // console.log(getCarByModel(cars, 'F-150'));
 // console.log(getCarByModel(cars, 'CX-9'));
 
@@ -162,9 +169,11 @@ const cars = [
   за збільшенням значення властивості amount
 */
 
-// const sortByAscendingAmount = (cars) => {};
+// const sortByAscendingAmount = (cars) =>
+//   [...cars].sort((a, b) => a.amount - b.amount);
 
 // console.table(cars);
+
 // console.table(sortByAscendingAmount(cars));
 
 /*
@@ -174,7 +183,8 @@ const cars = [
   за зменшенням значення властивості price
 */
 
-// const sortByDescendingPrice = cars => {};
+// const sortByDescendingPrice = (cars) =>
+//   [...cars].sort((a, b) => b.price - a.price);
 
 // console.table(cars);
 // console.table(sortByDescendingPrice(cars));
@@ -188,9 +198,17 @@ const cars = [
   - localeCompare
 */
 
-// const sortByModel = (cars, order) => {};
+// const sortByModel = (cars, order) =>
+//   [...cars].sort((a, b) => {
+//     if (order === 'asc') {
+//       return a.model.localeCompare(b.model);
+//     }
 
-// console.table(cars);
+//     return b.model.localeCompare(a.model);
+//   });
+
+// // console.table(cars);
+
 // console.table(sortByModel(cars, 'asc'));
 // console.table(sortByModel(cars, 'desc'));
 
@@ -200,7 +218,7 @@ const cars = [
   Нехай функція getTotalAmount повертає загальну кількість автомобілів (значення властивостей amount)
 */
 
-// const getTotalAmount = (cars) => {};
+// const getTotalAmount = (cars) => cars.reduce((acc, el) => el.amount + acc);
 
 // console.log(getTotalAmount(cars));
 
@@ -210,7 +228,8 @@ const cars = [
   Нехай функція getAvailableCarNames повертає масив моделей автомобілів, але тільки тих, що зараз на розпродажі.
 */
 
-// const getAvailableCarNames = (cars) => {};
+// const getAvailableCarNames = (cars) =>
+//   cars.filter((auto) => auto.onSale).map((auto) => auto.model);
 
 // console.log(getAvailableCarNames(cars));
 
@@ -221,7 +240,11 @@ const cars = [
   який ми передаємо у функцію, відсортованих в алфавітному порядку
 */
 
-// const getSortedCarsOnSale = (cars, type) => {};
+// const getSortedCarsOnSale = (cars, type) =>
+//   cars
+//     .filter((auto) => auto.onSale && auto.type === type)
+//     .sort((a, b) => a.model.localeCompare(b.model))
+//     .map((auto) => auto.model);
 
-// console.table(cars);
-// console.log(getSortedCarsOnSale(cars, 'sedan'));
+// // console.table(cars);
+// console.log(getSortedCarsOnSale(cars, 'suv'));
