@@ -1,250 +1,214 @@
-// Колекція об'єктів для всіх прикладів з автомобілями
-
-const cars = [
-  {
-    make: 'Honda',
-    model: 'CR-V',
-    type: 'suv',
-    amount: 14,
-    price: 24045,
-    onSale: true,
-  },
-  {
-    make: 'Honda',
-    model: 'Accord',
-    type: 'sedan',
-    amount: 2,
-    price: 22455,
-    onSale: true,
-  },
-  {
-    make: 'Mazda',
-    model: 'Mazda 6',
-    type: 'sedan',
-    amount: 8,
-    price: 24195,
-    onSale: false,
-  },
-  {
-    make: 'Mazda',
-    model: 'CX-9',
-    type: 'suv',
-    amount: 7,
-    price: 31520,
-    onSale: true,
-  },
-  {
-    make: 'Toyota',
-    model: '4Runner',
-    type: 'suv',
-    amount: 19,
-    price: 34210,
-    onSale: false,
-  },
-  {
-    make: 'Toyota',
-    model: 'Sequoia',
-    type: 'suv',
-    amount: 16,
-    price: 45560,
-    onSale: false,
-  },
-  {
-    make: 'Toyota',
-    model: 'Tacoma',
-    type: 'truck',
-    amount: 4,
-    price: 24320,
-    onSale: true,
-  },
-  {
-    make: 'Ford',
-    model: 'F-150',
-    type: 'truck',
-    amount: 11,
-    price: 27110,
-    onSale: true,
-  },
-  {
-    make: 'Ford',
-    model: 'Fusion',
-    type: 'sedan',
-    amount: 13,
-    price: 22120,
-    onSale: true,
-  },
-  {
-    make: 'Ford',
-    model: 'Explorer',
-    type: 'suv',
-    amount: 6,
-    price: 31660,
-    onSale: false,
-  },
-];
+'use strict';
 
 /*
-  1. Метод map
+  1. Контекст виклику this, визначення, призначення
 
-  Нехай функція getModels повертає масив моделей (поле model) всіх автомобілів
+  this в методах об'єкту
+
+  this існує лише всередині функцій і є динамічним значенням
+  На контекст не впливає де функція була об'явлена
+  На контекст впливає де функція викликається
 */
 
-// const getModels = (arr) => arr.map((element) => element.model);
+const user1 = {
+  name: 'Anna',
+  age: 22,
+  city: 'Kyiv',
 
-// console.log(getModels(cars));
-// console.log(cars);
+  showThis() {
+    console.log(this);
+  },
+
+  sayHi() {
+    console.log(`Hi, ${this.name}!`);
+  },
+
+  sayFromWhere() {
+    console.log(`${this.name} is from ${this.city}!`);
+  },
+};
+
+const user2 = {
+  name: 'Andrii',
+  age: 30,
+  city: 'Lviv',
+
+  // showThis: user1.showThis
+
+  // sayHi: user1.sayHi
+
+  // sayFromWhere: user1.sayFromWhere
+};
 
 /*
-  2. Метод map
+  2. Значення this залежно від місця звернення
+  і режиму роботи скрипту (strict mode)
 
-  Нехай функція makeCarsWithDiscount повертає новий масив об'єктів із змінeнним 
-  значенням властивості price залежно від переданої знижки
+  Втратa контексту
+
+  На контекст не впливає де функція була об'явлена
+  На контекст впливає де функція викликається
 */
 
-// const makeCarsWithDiscount = (cars, discount) =>
-//   cars.map((auto) => ({ ...auto, price: auto.price - discount }));
+// this у глобальній області видимості
 
-// console.table(cars);
-// console.table(makeCarsWithDiscount(cars, 2000));
+// function showThis() {
+//   console.log(this);
+// }
+
+// showThis();
+
+// this в callback-функціях
+
+// const user = {
+//   firstName: 'Andrii',
+//   lastName: 'Shevchuk',
+
+//   getFullName() {
+//     return `${this.firstName} ${this.lastName}`;
+//   },
+// };
+
+// function makeInvoice(callback) {
+//   console.log(`Обробляємо заявку від ${callback()}.`);
+// }
+
+// makeInvoice(user.getFullName);
+
+// this у стрілочних функціях, прив'язка до батькіської функції
+
+// 1.
+// const showThis = () => {
+//   console.log(this);
+// };
+
+// showThis();
+
+// 2.
+
+// const data = {
+//   date: '12-03-2019',
+//   extensions: ['.pdf', '.txt', '.html'],
+
+//   showDate() {
+//     const arrowFunc = () => {
+//       console.log(this.date);
+//     };
+
+//     arrowFunc();
+//   },
+// };
+
+// data.showDate();
 
 /*
-  3. Метод filter
+  3. Методи функцій bind, call, apply
+*/
+
+// Метод call
+
+// function getData() {
+//   console.log(`${this.username} is ${this.age} years old.`);
+// }
+
+// const userFirst = {
+//   username: 'Max',
+//   age: 29,
+// };
+
+// const userSecond = {
+//   username: 'Anatoliy',
+//   age: 33,
+// };
+
+// Метод apply
+
+// function greetGuest(greeting) {
+//   console.log(`${greeting}, ${this.username}.`);
+// }
+
+// const firstUser = {
+//   username: 'Alina',
+//   age: 30,
+// };
+
+// const secondUser = {
+//   username: 'Vitaliy',
+//   age: 35,
+// };
+
+// Метод bind
+
+// const fordAuto = {
+//   make: 'Ford',
+//   mark: 'Mondeo',
+//   wheels: 4,
+
+//   getInfo() {
+//     console.log(`${this.make} ${this.mark} has ${this.wheels} wheels`);
+//   },
+// };
+
+// const bogdanAuto = {
+//   make: 'Isuzu',
+//   mark: 'Bogdan',
+// };
+
+// const getInfo = fordAuto.getInfo;
+
+// getInfo()
+
+/*
+  4. Калькулятор
   
-  Нехай функція filterByPrice повертає масив автомобілів ціна яких менша за 
-  значення параметра threshold
+  Доповніть об'єкт calculator трьома методами:
+
+  write(a, b) - приймає два значення та зберігає їх як властивості об'єкта
+  getSum() - повертає суму збережених значень
+  getMulti() - перемножує збережені значення та повертає результат
 */
 
-// const filterByPrice = (cars, threshold) =>
-//   cars.filter((element) => element.price < threshold);
-
-// console.table(cars);
-// console.table(filterByPrice(cars, 30000));
-// console.table(filterByPrice(cars, 25000));
-
-// console.log([1, 2, 3].filter((element) => element > 3));
+// const calculator = {
+//   a: 0,
+//   b: 0,
+// };
 
 /*
-  4. Метод filter
+  5. Це ladder (драбина) – об'єкт, який дозволяє підніматись вгору
+  та спускатись
 
-  Нехай функція getCarsOnSale повертає масив автомобілів властивість onSale яких true
-*/
-
-// const getCarsOnSale = (cars) => cars.filter((element) => element.onSale);
-
-// console.table(cars);
-// console.table(getCarsOnSale(cars));
-
-/*
-  5. Метод filter
-
-  Нехай функція getCarsWithType повертає масив автомобілів, тип яких збігається 
-  зі значенням параметра type
-*/
-
-// const getCarsWithType = (cars, type) =>
-//   cars.filter((element) => element.type === type);
-
-// console.table(cars);
-// console.table(getCarsWithType(cars, 'suv'));
-// console.table(getCarsWithType(cars, 'sedan'));
-
-/*
-  6. Метод find
-
-  Нехай функція getCarByModel повертає об'єкт автомобіля властивість model
-  якого та параметр model однакові
-*/
-
-// const getCarByModel = (cars, model) =>
-//   cars.find((element) => element.model === model);
-
-// console.table(cars);
-// console.log(getCarByModel(cars, 'F-150'));
-// console.log(getCarByModel(cars, 'CX-9'));
-
-/*
-  7. Метод sort
+  Напишіть методи об'єкта ladder:
   
-  Нехай функція sortByAscendingAmount повертає НОВИЙ масив автомобілів відсортований 
-  за збільшенням значення властивості amount
+  up - піднятись на сходинку вище
+  down - опуститись на сходинку нижче
+  showStep - показати сходинку
 */
 
-// const sortByAscendingAmount = (cars) =>
-//   [...cars].sort((a, b) => a.amount - b.amount);
+// const ladder = {
+//   step: 0,
+// };
 
-// console.table(cars);
+/* 
+  Змініть код методів up, down та showStep таким чином, щоб 
+  їх виклик можна було зробити по ланцюжку, наприклад так:
 
-// console.table(sortByAscendingAmount(cars));
+  ladder.up().up().down().showStep()
+*/
 
 /*
-  8. Метод sort
-
-  Нехай функція sortByDescendingPrice повертає НОВИЙ масив автомобілів, відсортований 
-  за зменшенням значення властивості price
+  6. Напишіть метод calcTotalPrice(stoneName), який приймає назву
+  каменю, розраховує та повертає загальну вартість каміння з таким
+  ім'ям із властивості stones
 */
 
-// const sortByDescendingPrice = (cars) =>
-//   [...cars].sort((a, b) => b.price - a.price);
+// const chopShop = {
+//   stones: [
+//     { name: 'Emerald', price: 1300, quantity: 4 },
+//     { name: 'Diamond', price: 2700, quantity: 3 },
+//     { name: 'Sapphire', price: 1400, quantity: 7 },
+//     { name: 'Ruby', price: 800, quantity: 2 },
+//   ],
+// };
 
-// console.table(cars);
-// console.table(sortByDescendingPrice(cars));
-
-/*
-  9. Метод sort
-
-  Нехай функція sortByModel повертає НОВИЙ масив автомобілів відсортований за назвою 
-  моделі в алфавітному або зворотньому алфавітному порядку, залежно від значення параметра order
-
-  - localeCompare
-*/
-
-// const sortByModel = (cars, order) =>
-//   [...cars].sort((a, b) => {
-//     if (order === 'asc') {
-//       return a.model.localeCompare(b.model);
-//     }
-
-//     return b.model.localeCompare(a.model);
-//   });
-
-// // console.table(cars);
-
-// console.table(sortByModel(cars, 'asc'));
-// console.table(sortByModel(cars, 'desc'));
-
-/*
-  10. Метод reduce
-
-  Нехай функція getTotalAmount повертає загальну кількість автомобілів (значення властивостей amount)
-*/
-
-// const getTotalAmount = (cars) => cars.reduce((acc, el) => el.amount + acc);
-
-// console.log(getTotalAmount(cars));
-
-/*
-  11. Ланцюжки методів
-  
-  Нехай функція getAvailableCarNames повертає масив моделей автомобілів, але тільки тих, що зараз на розпродажі.
-*/
-
-// const getAvailableCarNames = (cars) =>
-//   cars.filter((auto) => auto.onSale).map((auto) => auto.model);
-
-// console.log(getAvailableCarNames(cars));
-
-/*
-  12. Ланцюжки методів
-  
-  Нехай функція getSortedCarsOnSale повертає назви моделей які знаходяться на продажі і мають тип кузова,
-  який ми передаємо у функцію, відсортованих в алфавітному порядку
-*/
-
-// const getSortedCarsOnSale = (cars, type) =>
-//   cars
-//     .filter((auto) => auto.onSale && auto.type === type)
-//     .sort((a, b) => a.model.localeCompare(b.model))
-//     .map((auto) => auto.model);
-
-// // console.table(cars);
-// console.log(getSortedCarsOnSale(cars, 'suv'));
+// console.log(chopShop.calcTotalPrice('Emerald')); // 5200
+// console.log(chopShop.calcTotalPrice('Diamond')); // 8100
