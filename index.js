@@ -23,9 +23,28 @@
   приймає кількість постів, які потрібно додати користувачеві
 */
 
-// 1
+// class Blogger {
+//   isHuman = true;
+
+//   constructor({ age, email, numberOfPosts, topics }) {
+//     this.age = age;
+//     this.email = email;
+//     this.numberOfPosts = numberOfPosts;
+//     this.topics = topics;
+//   }
+
+//   getInfo() {
+//     return `User ${this.email} is ${this.age} years old and has ${this.numberOfPosts}`;
+//   }
+
+//   updatePostCount(value) {
+//     this.numberOfPosts += value;
+//   }
+// }
+
+// // // 1
 // const mango = new Blogger({
-//   name: 'mango@mail.com',
+//   email: 'mango@mail.com',
 //   age: 24,
 //   numberOfPosts: 20,
 //   topics: ['tech', 'cooking'],
@@ -41,11 +60,17 @@
 
 // 2
 // const poly = new Blogger({
-//   name: 'poly@mail.com',
+//   email: 'poly@mail.com',
 //   age: 19,
 //   numberOfPosts: 17,
 //   topics: ['sports', 'gaming', 'health'],
 // });
+
+// const obj = {};
+
+// console.log(obj);
+
+// console.log(obj.toString());
 
 // console.log(poly);
 
@@ -54,6 +79,8 @@
 // poly.updatePostCount(4);
 
 // console.log(poly.getInfo());
+
+// console.log([]);
 
 /*
   2. Сховище
@@ -67,13 +94,33 @@
   addItem(item) - отримує новий товар та додає його до поточних
 */
 
+// class Storage {
+//   constructor(products) {
+//     this.items = products;
+//   }
+
+//   getItems() {
+//     return this.items;
+//   }
+
+//   addItem(item) {
+//     this.items.push(item);
+//   }
+// }
+
 // const coursesStorage = new Storage(['HTML', 'JS', 'CSS']);
+
 // console.log(coursesStorage);
 
 // console.table(coursesStorage.getItems());
 
 // coursesStorage.addItem('🍌');
+// coursesStorage.addItem('🍌');
+// coursesStorage.addItem('🍌');
+// coursesStorage.addItem('🍌');
 // console.log(coursesStorage.getItems());
+
+// const coursesStorage2 = new Storage(['HTML', 'JS', 'CSS']);
 
 /*
   3. User
@@ -85,10 +132,45 @@
   Оголоси приватні властивості #login та #email, доступ до яких зроби через геттер та сеттер login та email
 */
 
+// class User {
+//   #email;
+//   #login;
+
+//   constructor({ login, email }) {
+//     this.#email = email;
+//     this.#login = login;
+//   }
+
+//   get email() {
+//     return this.#email;
+//   }
+
+//   set email(emailValue) {
+//     this.#email = emailValue;
+//   }
+
+//   get login() {
+//     return this.#login;
+//   }
+
+//   set login(loginValue) {
+//     if (typeof loginValue !== 'string') {
+//       return;
+//     }
+
+//     this.#login = loginValue;
+//   }
+// }
+
 // const mango = new User({
-//     login: 'Mango',
-//     email: 'mango@dog.woof',
+//   login: 'Mango',
+//   email: 'mango@dog.woof',
 // });
+
+// console.log(mango);
+
+// mango.login = 5335;
+// console.log(mango);
 
 /*
   4. Нотатки
@@ -106,19 +188,42 @@
   Додай метод addNote(note) для додавання нотатки
 */
 
+// class Notes {
+//   static Priority = {
+//     LOW: 'low',
+//     NORMAL: 'normal',
+//     HIGH: 'high',
+//   };
+
+//   constructor(notesArray) {
+//     this.items = notesArray;
+//   }
+
+//   addNote(note) {
+//     this.items.push(note);
+//   }
+// }
+
+// console.log(Notes.Priority);
+
 // const myNotes = new Notes([]);
 
 // myNotes.addNote({
-//     text: 'Моя перша нотатка',
-//     priority: Notes.Priority.LOW
+//   text: 'Моя перша нотатка',
+//   priority: Notes.Priority.LOW,
 // });
 
+// console.log(myNotes);
 // myNotes.addNote({
 //     text: 'Моя друга нотатка',
 //     priority: Notes.Priority.HIGH
 // });
 
 // console.log(myNotes.items);
+
+// Array.isArray();
+
+// console.log({});
 
 /*
   5. Toggle
@@ -129,6 +234,16 @@
   
   і оголошує одну властивість on - стан викл/вкл (true/false). За замовчуванням значення властивості on має бути false.
 */
+
+// class Toggle {
+//   constructor({ isOpen = false } = {}) {
+//     this.on = isOpen;
+//   }
+// }
+
+// const toggle = new Toggle();
+
+// console.log(toggle);
 
 /*
   6. Прототипне наслідування детальніше
@@ -145,8 +260,35 @@
 // };
 
 // const obj2 = Object.create(obj1);
+// obj2.c = 3;
 
-// obj2.c = 3
+// debugger;
 
-// console.log(obj2)
-// console.log(obj2.a)
+// for (let key in obj2) {
+//   if (obj2.hasOwnProperty(key)) {
+//     console.log(key);
+//   }
+// }
+
+// console.log(obj2);
+
+// console.log(obj2.a);
+
+// class Class1 {
+//   constructor(name) {}
+// }
+
+// class Class2 extends Class1 {
+
+//   constructor() {
+//     Class1.constructor === super()
+//   }
+// }
+
+// const obj1 = {
+//   method: function () {}
+// }
+
+// const obj2 = {
+//   method: obj1.method
+// }
