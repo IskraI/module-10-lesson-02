@@ -34,7 +34,7 @@ const countries = [
 ];
 
 const searchInputEl = document.querySelector('.search-input');
-const outputError = document.querySelector('.output-error');
+const outputErrorEl = document.querySelector('.output-error');
 const countryCardEl = document.querySelector('.country-card');
 
 const createCountryCard = ({ name, capital, population, area } = {}) => {
@@ -43,3 +43,30 @@ const createCountryCard = ({ name, capital, population, area } = {}) => {
      <li class="country-card__item"><strong>Население:</strong> ${population}</li>
      <li class="country-card__item"><strong>Площадь:</strong> ${area}км<sup>2</sup></li>`;
 };
+
+const handleSearchCountry = ({ target }) => {
+  const searchQuery = target.value.trim().toLowerCase();
+
+  if (!searchQuery) {
+    outputErrorEl.innerHTML = ``;
+    countryCardEl.innerHTML = ``;
+
+    return;
+  }
+
+  const foundCountry = countries.find(
+    el => searchQuery === el.name.toLowerCase()
+  );
+
+  if (!foundCountry) {
+    outputErrorEl.textContent = `Такої країни не знайдено!`;
+    countryCardEl.innerHTML = ``;
+
+    return;
+  }
+
+  outputErrorEl.textContent = ``;
+  countryCardEl.innerHTML = createCountryCard(foundCountry);
+};
+
+searchInputEl.addEventListener(`input`, _.debounce(handleSearchCountry, 700));
