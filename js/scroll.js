@@ -9,16 +9,43 @@ sectionElements.forEach(section => {
   section.style.backgroundColor = randomColor();
 });
 
-const handleDocumentScroll = () => {
-  console.log(window.pageYOffset);
+// const handleDocumentScroll = () => {
+//   console.log(window.pageYOffset);
 
-  if (window.pageYOffset >= 300) {
-    const activeSectionEl = document.querySelector(`.animated-section`);
+//   if (window.pageYOffset > 150) {
+//     const sectionEl = document.querySelector('.animated-section');
 
-    activeSectionEl.classList.add(`active`);
-  }
-};
+//     sectionEl.classList.add('active');
+//     document.removeEventListener('scroll', throttledHandlerFunction);
+//   }
+// };
 
-const throttledHandler = _.throttle(handleDocumentScroll, 700);
+// const throttledHandlerFunction = _.throttle(handleDocumentScroll, 700);
 
-document.addEventListener(`scroll`, throttledHandler);
+// document.addEventListener('scroll', throttledHandlerFunction);
+
+// const buttonEl = document.querySelector('button');
+
+// const debouncedFunc = _.debounce(
+//   () => {
+//     console.log(`Hello!`);
+//   },
+//   600,
+//   { leading: true, trailing: false }
+// );
+
+// buttonEl.addEventListener('click', debouncedFunc);
+
+//  function getRandomHexColor() {
+//    return `#${Math.floor(Math.random() * 16777215)
+//      .toString(16)
+//      .padStart(6, 0)}`;
+//  }
+
+// const obj1 = {
+//   a: {},
+// };
+
+// const obj2 = _.cloneDeep(obj1);
+
+// console.log(obj1.a === obj2.a);

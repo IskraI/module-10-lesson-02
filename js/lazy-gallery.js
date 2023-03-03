@@ -4,8 +4,10 @@ const galleryEl = document.querySelector('.gallery');
 const bannerImgEl = document.querySelector('.banner__img');
 const galleryImgEls = document.querySelectorAll('.gallery__img');
 
-galleryEl.addEventListener(`click`, event => {
-  if (event.target.nodeName !== `IMG`) {
+galleryEl.addEventListener('click', event => {
+  event.preventDefault();
+
+  if (event.target.nodeName !== 'IMG') {
     return;
   }
 
@@ -16,9 +18,9 @@ galleryEl.addEventListener(`click`, event => {
 
 galleryImgEls.forEach(picture => {
   picture.addEventListener(
-    `load`,
+    'load',
     ({ target }) => {
-      target.classList.add(`appear`);
+      target.classList.add('appear');
     },
     { once: true }
   );

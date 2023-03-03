@@ -34,39 +34,41 @@ const countries = [
 ];
 
 const searchInputEl = document.querySelector('.search-input');
-const outputErrorEl = document.querySelector('.output-error');
+const outputError = document.querySelector('.output-error');
 const countryCardEl = document.querySelector('.country-card');
 
 const createCountryCard = ({ name, capital, population, area } = {}) => {
   return `<li class="country-card__item"><strong>Страна:</strong> ${name}</li>
-     <li class="country-card__item"><strong>Столица:</strong> ${capital}</li>
-     <li class="country-card__item"><strong>Население:</strong> ${population}</li>
-     <li class="country-card__item"><strong>Площадь:</strong> ${area}км<sup>2</sup></li>`;
+  <li class="country-card__item"><strong>Столица:</strong> ${capital}</li>
+  <li class="country-card__item"><strong>Население:</strong> ${population}</li>
+  <li class="country-card__item"><strong>Площадь:</strong> ${area}км<sup>2</sup></li>`;
 };
 
-const handleSearchCountry = ({ target }) => {
-  const searchQuery = target.value.trim().toLowerCase();
+const hanleSearchCountry = ({ target }) => {
+  const searchQuery = target.value.toLowerCase().trim();
 
   if (!searchQuery) {
-    outputErrorEl.innerHTML = ``;
-    countryCardEl.innerHTML = ``;
+    outputError.innerHTML = '';
+    countryCardEl.innerHTML = '';
 
     return;
   }
 
   const foundCountry = countries.find(
-    el => searchQuery === el.name.toLowerCase()
+    el => el.name.toLowerCase() === searchQuery
   );
 
   if (!foundCountry) {
-    outputErrorEl.textContent = `Такої країни не знайдено!`;
-    countryCardEl.innerHTML = ``;
+    outputError.textContent = 'Такої країни не було знайдено';
+    countryCardEl.innerHTML = '';
 
     return;
   }
 
-  outputErrorEl.textContent = ``;
+  outputError.innerHTML = '';
   countryCardEl.innerHTML = createCountryCard(foundCountry);
 };
 
-searchInputEl.addEventListener(`input`, _.debounce(handleSearchCountry, 700));
+const debouncedFunc = _.debounce(hanleSearchCountry, 400);
+
+searchInputEl.addEventListener('input', debouncedFunc);
