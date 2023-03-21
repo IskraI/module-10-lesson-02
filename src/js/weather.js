@@ -33,3 +33,9 @@ const handleSearchWeather = event => {
 };
 
 weatherFormEl.addEventListener('submit', handleSearchWeather);
+
+// weatherFormEl.onsubmit = event => {
+//   event.preventDefault();
+
+//   console.log(Object.fromEntries([...new FormData(event.target)]));
+// };
